@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hostel Point — La Pedrera, Rocha</title>
+<meta name="description" content="Hostel Point: surf, amigos y buena vibra en La Pedrera, Uruguay. Dormis y habitaciones privadas, desayuno incluido, wifi y parking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#FBF6EC;
+    --sand-deep:#F1E7D3;
+    --ink:#1E2A22;
+    --wood:#8C5A2E;
+    --wood-deep:#6B431F;
+    --palm:#2F5A3C;
+    --palm-deep:#1F3E2A;
+    --turquoise:#1F8C8A;
+    --coral:#E85B3C;
+    --coral-deep:#C6462A;
+    --paper-line: rgba(30,42,34,0.08);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Karla', sans-serif;
+    background:var(--sand);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    font-weight:400;
+    line-height:1.02;
+  }
+  .script{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+  }
+  a{color:inherit;}
+  img{display:block; max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  /* leaf motif — echoes the hand-painted monstera posts at the hostel */
+  .leaf{position:absolute; opacity:0.16; pointer-events:none;}
+  svg.leaf-shape path{fill:var(--palm);}
+
+  /* NAV */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(251,246,236,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--paper-line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:14px; padding-bottom:14px;
+  }
+  .brand{
+    font-family:'Anton', sans-serif;
+    font-size:22px;
+    letter-spacing:0.03em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{color:var(--coral);}
+  nav ul{
+    list-style:none; display:flex; gap:28px;
+  }
+  nav ul li a{
+    text-decoration:none;
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--palm-deep);
+    position:relative;
+    padding-bottom:4px;
+  }
+  nav ul li a::after{
+    content:""; position:absolute; left:0; bottom:0; height:2px; width:0;
+    background:var(--coral); transition:width .25s ease;
+  }
+  nav ul li a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--coral); color:#fff !important; padding:9px 18px;
+    border-radius:100px; font-weight:700; text-transform:uppercase;
+    font-size:13px; letter-spacing:0.04em;
+  }
+  .nav-cta::after{display:none;}
+  .menu-toggle{display:none;}
+
+  /* HERO */
+  .hero{
+    position:relative; min-height:100vh; display:flex; align-items:flex-end;
+    padding-bottom:90px;
+    color:#fff;
+    overflow:hidden;
+  }
+  .hero-img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    filter:saturate(1.05);
+  }
+  .hero-scrim{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(20,30,22,0.15) 0%, rgba(15,25,18,0.35) 55%, rgba(10,18,13,0.86) 100%);
+  }
+  .hero-content{position:relative; z-index:2;}
+  .eyebrow{
+    font-family:'Caveat', cursive; font-size:28px; color:#F3D9A8;
+    display:block; margin-bottom:2px; transform:rotate(-2deg);
+  }
+  .hero h1{
+    font-size:clamp(52px, 10vw, 128px);
+    line-height:0.88;
+    text-shadow:0 6px 30px rgba(0,0,0,0.25);
+  }
+  .hero p.tag{
+    max-width:520px; margin-top:18px; font-size:19px; color:#F3EFE3;
+  }
+  .hero-actions{margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:100px;
+    font-weight:700; text-transform:uppercase; font-size:14px; letter-spacing:0.03em;
+    text-decoration:none; border:2px solid transparent; cursor:pointer;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-coral{background:var(--coral); color:#fff; box-shadow:0 10px 24px rgba(232,91,60,0.35);}
+  .btn-ghost{border-color:rgba(255,255,255,0.6); color:#fff;}
+  .btn-outline{border-color:var(--palm); color:var(--palm-deep);}
+  .btn-whats{background:#25D366; color:#fff;}
+
+  .scroll-cue{
+    position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
+    z-index:2; color:#fff; font-size:12px; letter-spacing:0.15em; text-transform:uppercase;
+    opacity:0.85; display:flex; flex-direction:column; align-items:center; gap:6px;
+  }
+  .scroll-cue .line{width:1px; height:34px; background:rgba(255,255,255,0.6); animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:0.3;} 50%{opacity:1;}}
+
+  /* SECTION HEADS */
+  section{padding:100px 0;}
+  .section-head{max-width:640px; margin-bottom:52px;}
+  .kicker{
+    font-family:'Caveat', cursive; font-size:26px; color:var(--coral-deep);
+    transform:rotate(-1.5deg); display:inline-block; margin-bottom:2px;
+  }
+  .section-head h2{font-size:clamp(36px, 5vw, 56px); color:var(--palm-deep);}
+  .section-head p{margin-top:14px; font-size:17px; color:#43514A;}
+
+  /* ABOUT */
+  #about{background:var(--sand); position:relative;}
+  .about-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center;
+  }
+  .about-photo{position:relative;}
+  .about-photo img{
+    border-radius:18px; box-shadow:0 30px 60px -20px rgba(31,62,42,0.35);
+  }
+  .about-photo .frame{
+    position:absolute; inset:-14px; border:2px solid var(--palm); border-radius:24px;
+    opacity:0.5; z-index:-1;
+  }
+  .about-text p{margin-bottom:16px; font-size:16.5px; color:#3A4740;}
+  .about-facts{
+    display:flex; gap:28px; margin-top:28px; flex-wrap:wrap;
+  }
+  .fact{border-left:3px solid var(--coral); padding-left:14px;}
+  .fact strong{display:block; font-family:'Anton',sans-serif; font-size:15px; color:var(--palm-deep); text-transform:uppercase;}
+  .fact span{font-size:14px; color:#5A6860;}
+
+  /* WAVE DIVIDER */
+  .divider{line-height:0;}
+  .divider svg{width:100%; height:60px; display:block;}
+
+  /* ROOMS */
+  #rooms{background:var(--palm-deep); color:#F3EFE3;}
+  #rooms .section-head h2{color:#fff;}
+  #rooms .section-head p{color:#CFE0D4;}
+  #rooms .kicker{color:#F3D9A8;}
+  .room-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:26px;
+  }
+  .room-card{
+    background:rgba(251,246,236,0.06);
+    border:1px solid rgba(251,246,236,0.16);
+    border-radius:18px; overflow:hidden;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .room-card:hover{transform:translateY(-6px); border-color:rgba(232,91,60,0.6);}
+  .room-photo{aspect-ratio:4/3; overflow:hidden;}
+  .room-photo img{width:100%; height:100%; object-fit:cover;}
+  .room-body{padding:22px 22px 26px;}
+  .room-body h3{font-size:22px; margin-bottom:6px;}
+  .room-cap{
+    display:inline-block; background:var(--coral); color:#fff; font-size:12px;
+    font-weight:700; letter-spacing:0.04em; text-transform:uppercase;
+    padding:4px 10px; border-radius:100px; margin-bottom:10px;
+  }
+  .room-body p{font-size:14.5px; color:#D8E4DA;}
+
+  /* SERVICES */
+  #services{background:var(--sand-deep);}
+  .service-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
+  }
+  .service-card{
+    background:var(--sand); border:1px solid var(--paper-line);
+    border-radius:16px; padding:30px 22px; text-align:center;
+    transition:transform .2s ease;
+  }
+  .service-card:hover{transform:translateY(-5px);}
+  .service-icon{
+    width:56px; height:56px; margin:0 auto 16px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--palm); border-radius:50%; color:#fff;
+  }
+  .service-card h3{font-size:16px; color:var(--palm-deep); margin-bottom:6px; letter-spacing:0.01em;}
+  .service-card p{font-size:13.5px; color:#5A6860;}
+
+  /* GALLERY */
+  #gallery{background:var(--sand);}
+  .gal-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); grid-auto-rows:150px; gap:14px;
+  }
+  .gal-grid img{width:100%; height:100%; object-fit:cover; border-radius:12px; cursor:pointer;
+    transition:transform .3s ease, filter .3s ease;}
+  .gal-grid img:hover{transform:scale(1.03); filter:brightness(1.05);}
+  .gal-grid .tall{grid-row:span 2;}
+  .gal-grid .wide{grid-column:span 2;}
+  .ig-link{
+    display:inline-flex; align-items:center; gap:8px; margin-top:30px;
+    font-weight:700; color:var(--coral-deep); text-decoration:none; font-size:15px;
+  }
+
+  /* CONTACT / BOOK */
+  #book{
+    background:var(--palm-deep); color:#F3EFE3; position:relative; overflow:hidden;
+  }
+  #book .section-head h2{color:#fff;}
+  #book .section-head p{color:#CFE0D4;}
+  #book .kicker{color:#F3D9A8;}
+  .book-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+  .book-info .info-row{
+    display:flex; gap:14px; margin-bottom:22px; align-items:flex-start;
+  }
+  .info-icon{
+    width:38px; height:38px; flex:0 0 38px; border-radius:50%;
+    background:rgba(232,91,60,0.18); color:#F3D9A8;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .info-row h4{font-size:15px; text-transform:uppercase; letter-spacing:0.03em; margin-bottom:3px;}
+  .info-row p, .info-row a{font-size:14.5px; color:#D8E4DA; text-decoration:none;}
+  .whats-block{
+    margin-top:30px; background:rgba(251,246,236,0.07); border:1px solid rgba(251,246,236,0.18);
+    border-radius:16px; padding:22px;
+  }
+  .whats-block p{font-size:14px; color:#CFE0D4; margin-bottom:14px;}
+
+  form{
+    background:var(--sand); border-radius:20px; padding:34px; color:var(--ink);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.4);
+  }
+  form h3{font-size:15px; text-transform:uppercase; letter-spacing:0.03em; color:var(--palm-deep); margin-bottom:20px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:13px; font-weight:700; margin-bottom:6px; color:#3A4740;}
+  .field input, .field select, .field textarea{
+    width:100%; padding:11px 13px; border:1.5px solid #D9CFB8; border-radius:10px;
+    font-family:'Karla', sans-serif; font-size:14.5px; background:#fff; color:var(--ink);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none; border-color:var(--coral);
+  }
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .form-note{font-size:12.5px; color:#6D7A72; margin-top:12px; line-height:1.5;}
+  button.submit{
+    width:100%; border:none; background:var(--coral); color:#fff; padding:14px;
+    border-radius:100px; font-weight:700; text-transform:uppercase; letter-spacing:0.03em;
+    font-size:14.5px; cursor:pointer; margin-top:6px;
+  }
+  button.submit:hover{background:var(--coral-deep);}
+
+  /* FOOTER */
+  footer{background:#12201A; color:#B9C6BD; padding:50px 0 26px;}
+  .foot-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px; margin-bottom:34px;}
+  .foot-brand{font-family:'Anton', sans-serif; font-size:22px; color:#fff; letter-spacing:0.03em;}
+  .foot-links{display:flex; gap:22px; flex-wrap:wrap;}
+  .foot-links a{color:#B9C6BD; text-decoration:none; font-size:14px;}
+  .foot-links a:hover{color:var(--coral);}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,0.08); padding-top:20px; font-size:12.5px; color:#7C897F;}
+
+  @media (max-width: 900px){
+    nav ul{display:none;}
+    .menu-toggle{display:block; background:none; border:none; color:var(--palm-deep); font-size:26px;}
+    .about-grid, .book-grid{grid-template-columns:1fr; gap:36px;}
+    .room-grid{grid-template-columns:1fr;}
+    .service-grid{grid-template-columns:1fr 1fr;}
+    .gal-grid{grid-template-columns:1fr 1fr; grid-auto-rows:130px;}
+    .field-row{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand"><span>HOSTEL</span><span class="dot">•</span><span>POINT</span></div>
+    <ul>
+      <li><a href="#about">El Point</a></li>
+      <li><a href="#rooms">Habitaciones</a></li>
+      <li><a href="#services">Servicios</a></li>
+      <li><a href="#gallery">Galería</a></li>
+      <li><a href="#book" class="nav-cta">Reservá</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero" id="inicio">
+  <img class="hero-img" src="images/097.jpg" alt="Hamaca en la galería del Hostel Point, junto a la pileta">
+  <div class="hero-scrim"></div>
+  <div class="wrap hero-content">
+    <span class="eyebrow">La Pedrera · Rocha · Uruguay</span>
+    <h1>Bienvenidos<br>al Point</h1>
+    <p class="tag">Surf, amigos y buena vibra. Tus vacaciones empiezan en el momento que confirmás tu lugar en el hostel.</p>
+    <div class="hero-actions">
+      <a href="#book" class="btn btn-coral">Reservá tu lugar</a>
+      <a href="https://wa.me/59891676705" target="_blank" rel="noopener" class="btn btn-ghost">Escribinos por WhatsApp</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Descubrí el Point</span><span class="line"></span></div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-photo">
+      <div class="frame"></div>
+      <img src="images/081.jpg" alt="Galería con hamacas del Hostel Point">
+    </div>
+    <div class="about-text">
+      <span class="kicker">De qué se trata</span>
+      <h2>Un lugar para tirarte<br>en la hamaca</h2>
+      <p>Hostel Point es una casa de madera entre los pinos de La Pedrera, a un paso de las playas y del ambiente que hizo famoso a este pueblo de Rocha. Acá las vacaciones no esperan al check-in: arrancan apenas confirmás tu lugar.</p>
+      <p>Dormis compartidos, habitaciones privadas, galerías con hamacas y esa buena onda que se arma entre viajeros de todos lados.</p>
+      <div class="about-facts">
+        <div class="fact"><strong>Dirección</strong><span>Calle 24 y Ombú, La Pedrera, Rocha</span></div>
+        <div class="fact"><strong>Instagram</strong><span>@hostelpoint</span></div>
+        <div class="fact"><strong>También en</strong><span>Booking · Hostelworld</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C 200,60 400,0 600,30 C 800,60 1000,0 1200,30 C 1300,45 1400,20 1440,30 L1440,60 L0,60 Z" fill="#1F3E2A"></path></svg>
+</div>
+
+<section id="rooms">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Dónde vas a dormir</span>
+      <h2>Habitaciones</h2>
+      <p>Dos dormis de 8, dos de 10 y dos habitaciones privadas para quienes prefieren su propio espacio. Baños compartidos en todo el hostel.</p>
+    </div>
+    <div class="room-grid">
+      <div class="room-card">
+        <div class="room-photo"><img src="images/105.jpg" alt="Dormitorio compartido de 8 personas"></div>
+        <div class="room-body">
+          <span class="room-cap">2 disponibles</span>
+          <h3>Dormi de 8</h3>
+          <p>Camas cuchetas, ambiente compartido y el clásico ida y vuelta de mochileros.</p>
+        </div>
+      </div>
+      <div class="room-card">
+        <div class="room-photo"><img src="images/107.jpg" alt="Dormitorio compartido de 10 personas"></div>
+        <div class="room-body">
+          <span class="room-cap">2 disponibles</span>
+          <h3>Dormi de 10</h3>
+          <p>Ideal para grupos grandes o para quienes viajan solos y quieren hacer amigos rápido.</p>
+        </div>
+      </div>
+      <div class="room-card">
+        <div class="room-photo"><img src="images/108.jpg" alt="Habitación privada del Hostel Point"></div>
+        <div class="room-body">
+          <span class="room-cap">2 disponibles</span>
+          <h3>Privada</h3>
+          <p>Tu propio espacio dentro del hostel, con toda la onda del Point alrededor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Lo que incluye</span>
+      <h2>Servicios</h2>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 8.5a16 16 0 0 1 20 0"/><path d="M5 12a11 11 0 0 1 14 0"/><path d="M8.5 15.5a6 6 0 0 1 7 0"/><circle cx="12" cy="19" r="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <h3>Wifi de banda ancha</h3>
+        <p>Para no perder la señal ni las fotos del viaje.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <h3>Desayuno incluido</h3>
+        <p>Para arrancar el día con pilas antes de ir a la playa.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 8h4a2 2 0 0 1 0 4H9V8Z"/><line x1="9" y1="12" x2="9" y2="17"/></svg>
+        </div>
+        <h3>Parking</h3>
+        <p>Lugar para dejar el auto sin vueltas.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h16"/><path d="M5 12V7a3 3 0 0 1 3-3h1a3 3 0 0 1 3 3v5"/><path d="M4 17h16"/><path d="M6 17v3"/><path d="M18 17v3"/></svg>
+        </div>
+        <h3>Baños compartidos</h3>
+        <p>Limpios y a mano en todas las habitaciones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="transform:rotate(180deg);">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,30 C 200,60 400,0 600,30 C 800,60 1000,0 1200,30 C 1300,45 1400,20 1440,30 L1440,60 L0,60 Z" fill="#1F3E2A"></path></svg>
+</div>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Un vistazo</span>
+      <h2>Galería</h2>
+      <p>Así se vive el Point. Más fotos y el día a día del hostel, en Instagram.</p>
+    </div>
+    <div class="gal-grid">
+      <img class="tall" src="images/065.jpg" alt="Rincón del Hostel Point 1">
+      <img class="wide" src="images/113.jpg" alt="Rincón del Hostel Point 2">
+      <img src="images/066.jpg" alt="Rincón del Hostel Point 3">
+      <img src="images/100.jpg" alt="Rincón del Hostel Point 4">
+      <img src="images/103.jpg" alt="Rincón del Hostel Point 5">
+      <img class="wide" src="images/097.jpg" alt="Rincón del Hostel Point 6">
+    </div>
+    <a class="ig-link" href="https://www.instagram.com/hostelpoint" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      Seguinos en Instagram @hostelpoint
+    </a>
+  </div>
+</section>
+
+<section id="book">
+  <div class="wrap book-grid">
+    <div class="book-info">
+      <span class="kicker">Ganas de venir?</span>
+      <h2 style="margin-bottom:24px;">Reservá tu lugar</h2>
+
+      <div class="info-row">
+        <div class="info-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div><h4>Dirección</h4><p>Calle 24 y Ombú, La Pedrera, Rocha, Uruguay</p></div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6 12 13 2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+        </div>
+        <div><h4>Mail</h4><a href="mailto:pointlapedrera2012@gmail.com">pointlapedrera2012@gmail.com</a></div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+        </div>
+        <div><h4>WhatsApp / Teléfono</h4><a href="https://wa.me/59891676705" target="_blank" rel="noopener">+598 91 676 705</a></div>
+      </div>
+
+      <div class="whats-block">
+        <p>¿Preferís algo más directo? Escribinos por WhatsApp y te contestamos al toque.</p>
+        <a class="btn btn-whats" href="https://wa.me/59891676705?text=Hola%20Hostel%20Point!%20Quiero%20consultar%20disponibilidad." target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.87 9.87 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Z" opacity="0"/><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.66.15-.2.3-.76.97-.93 1.17-.17.2-.34.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.66-1.6-.91-2.19-.24-.58-.48-.5-.66-.5h-.56c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35Z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.87 9.87 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.14.82.84-3.06-.2-.31a8.22 8.22 0 1 1 6.99 3.88Z"/></svg>
+          Escribir por WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <form id="reservaForm">
+      <h3>Formulario de reserva / consulta</h3>
+      <div class="field">
+        <label for="nombre">Nombre y apellido</label>
+        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="vos@mail.com">
+        </div>
+        <div class="field">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="+54 9 ...">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="checkin">Check-in</label>
+          <input type="date" id="checkin" name="checkin">
+        </div>
+        <div class="field">
+          <label for="checkout">Check-out</label>
+          <input type="date" id="checkout" name="checkout">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="personas">Personas</label>
+          <input type="number" id="personas" name="personas" min="1" value="1">
+        </div>
+        <div class="field">
+          <label for="tipo">Tipo de habitación</label>
+          <select id="tipo" name="tipo">
+            <option>Dormi de 8</option>
+            <option>Dormi de 10</option>
+            <option>Privada</option>
+            <option>No estoy seguro</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="mensaje" rows="3" placeholder="Contanos algo más si querés"></textarea>
+      </div>
+      <button type="submit" class="submit">Enviar consulta</button>
+      <p class="form-note">Al enviar se abre tu programa de mail con todos los datos ya cargados, listos para mandar a pointlapedrera2012@gmail.com. Si preferís, usá el botón de WhatsApp de al lado.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">HOSTEL POINT</div>
+        <p style="margin-top:8px; font-size:14px; max-width:280px;">Calle 24 y Ombú, La Pedrera, Rocha, Uruguay.</p>
+      </div>
+      <div class="foot-links">
+        <a href="#about">El Point</a>
+        <a href="#rooms">Habitaciones</a>
+        <a href="#services">Servicios</a>
+        <a href="#gallery">Galería</a>
+        <a href="#book">Reservá</a>
+        <a href="https://www.instagram.com/hostelpoint" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:pointlapedrera2012@gmail.com">Mail</a>
+        <a href="https://wa.me/59891676705" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      También nos encontrás en Booking y Hostelworld. © <span id="year"></span> Hostel Point, La Pedrera.
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const form = document.getElementById('reservaForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value;
+    const email = document.getElementById('email').value;
+    const telefono = document.getElementById('telefono').value;
+    const checkin = document.getElementById('checkin').value;
+    const checkout = document.getElementById('checkout').value;
+    const personas = document.getElementById('personas').value;
+    const tipo = document.getElementById('tipo').value;
+    const mensaje = document.getElementById('mensaje').value;
+
+    const subject = encodeURIComponent('Consulta de reserva - ' + nombre);
+    const body = encodeURIComponent(
+      'Nombre: ' + nombre + '\n' +
+      'Email: ' + email + '\n' +
+      'Teléfono: ' + telefono + '\n' +
+      'Check-in: ' + checkin + '\n' +
+      'Check-out: ' + checkout + '\n' +
+      'Personas: ' + personas + '\n' +
+      'Tipo de habitación: ' + tipo + '\n' +
+      'Mensaje: ' + mensaje
+    );
+
+    window.location.href = 'mailto:pointlapedrera2012@gmail.com?subject=' + subject + '&body=' + body;
+  });
+</script>
+
+</body>
+</html>
